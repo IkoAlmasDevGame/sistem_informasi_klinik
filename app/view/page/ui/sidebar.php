@@ -188,7 +188,7 @@ if($_SESSION['jabatan'] == "superadmin"){
             <hr class="border border-bottom border-dark">
             <h4 class="fs-5 fst-normal fw-semibold">Data Master Lain</h4>
             <li class="nav-item">
-                <a class="nav-link collapsed" aria-current="page" href="?page=Pendaftaran">
+                <a class="nav-link collapsed" aria-current="page" href="?page=pendaftaran">
                     <i class="fas fa-clipboard-list fa-1x"></i>
                     <span>Data Pendaftaran</span>
                 </a>
@@ -380,7 +380,7 @@ if($_SESSION['jabatan'] == "superadmin"){
                     <hr class="border border-bottom border-dark">
                     <h4 class="fs-5 fst-normal fw-semibold">Pendaftaran Pasien</h4>
                     <li class="nav-item">
-                        <a class="nav-link collapsed" aria-current="page" href="?page=Pendaftaran">
+                        <a class="nav-link collapsed" aria-current="page" href="?page=pendaftaran">
                             <i class="fas fa-clipboard-list fa-1x"></i>
                             <span>Data Pendaftaran</span>
                         </a>

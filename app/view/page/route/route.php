@@ -44,7 +44,7 @@ if(!isset($_GET['page'])){
             require_once("../poli/poli.php");
             break;
             
-        case 'Pendaftaran':
+        case 'pendaftaran':
             $title = "Data Master Pendaftaran";
             require_once("../Pendaftaran/Pendaftaran.php");
             break;
