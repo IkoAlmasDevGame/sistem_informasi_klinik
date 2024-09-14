@@ -24,6 +24,78 @@
                 <a href="index.php" aria-current="page" class="navbar-brand">Poli Klinik Indonesia Islamic</a>
             </div>
         </nav>
+        <div class="container-fluid mt-4 pt-5">
+            <div class="d-flex justify-content-center align-items-center flex-wrap mt-1 pt-1">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-2">
+                        <h4 class="card-title text-center">- Login Poli Klinik Indonesia Islamic -</h4>
+                    </div>
+                    <div class="card-body mt-1">
+                        <!-- Layout Form -->
+                        <?php require_once("../auth/function.php"); ?>
+                        <?php 
+                            require_once("../../controller/controller.php");
+                            require_once("../../model/pengguna.php");
+                            $authentication = new controller\Pengguna($konfigs);
+                            if(!isset($_GET['aksi'])){
+                            }else{
+                                switch ($_GET['aksi']) {
+                                    case 'sign-in':
+                                        $authentication->SignIn();
+                                        break;
+                                    
+                                    default:
+                                        # code...
+                                        break;
+                                }
+                            }
+                        ?>
+                        <form action="?aksi=sign-in" method="post">
+                            <div class="form-group">
+                                <div class="form-inline row justify-content-center
+                                     align-items-center flex-wrap mb-1 mt-1">
+                                    <div class="form-label col-sm-2 col-md-3">
+                                        <label for="" class="label label-default">User Input</label>
+                                    </div>
+                                    <div class="col-sm-8 col-md-9">
+                                        <input type="text" name="userInput" aria-required="TRUE" class="form-control"
+                                            placeholder="masukkan username atau email anda ..." required id="">
+                                    </div>
+                                </div>
+                                <div class="form-inline row justify-content-center
+                                 align-items-center flex-wrap mb-1 mt-1">
+                                    <div class="form-label col-sm-2 col-md-3">
+                                        <label for="" class="label label-default">Kata Sandi</label>
+                                    </div>
+                                    <div class="col-sm-8 col-md-9">
+                                        <input type="password" name="password" aria-required="TRUE" class="form-control"
+                                            placeholder="masukkan kata sandi anda ..." required id="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer m-1">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-outline-light">
+                                        <i class="fa fa-sign-in-alt fa-1x"></i>
+                                        <span>Sign In</span>
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-outline-light">
+                                        <i class="fa fa-eraser fa-1x"></i>
+                                        <span>Hapus</span>
+                                    </button>
+                                </div>
+                                <div class="container mt-4 p-1">
+                                    <footer class="footer">
+                                        <p id="year" class="text-center"></p>
+                                    </footer>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Layout Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Layout Finish -->
         <script crossorigin="anonymous" lang="javascript"
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">

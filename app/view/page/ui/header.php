@@ -28,7 +28,7 @@
         <link href="<?=baseurl('dist/vendor/remixicon/remixicon.css')?>" crossorigin="anonymous" rel="stylesheet">
         <link href="<?=baseurl('dist/vendor/simple-datatables/style.css')?>" crossorigin="anonymous" rel="stylesheet">
         <link href="<?=baseurl('dist/css/style.css')?>" crossorigin="anonymous" rel="stylesheet">
-        <link rel="stylesheet" crossorigin="anonymous" href="<?=baseurl('app/view/admin/page/ui/styles.css')?>">
+        <link rel="stylesheet" crossorigin="anonymous" href="<?=baseurl('app/view/page/ui/styles.css')?>">
     </head>
 
     <body class="body">

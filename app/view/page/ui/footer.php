@@ -1,4 +1,4 @@
-<?php require_once("../../../../config/config.php"); ?>
+<?php require_once("../../../config/config.php"); ?>
 <script src="<?=baseurl('dist/vendor/apexcharts/apexcharts.min.js')?>"></script>
 <script src="<?=baseurl('dist/vendor/chart.js/chart.umd.js')?>"></script>
 <script src="<?=baseurl('dist/vendor/echarts/echarts.min.js')?>"></script>
