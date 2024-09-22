@@ -43,7 +43,7 @@
                  fw-normal fs-5 text-dark">
                     <i class="fa fa-table fa-1x shadow"></i> <?php echo $title ?>
                 </h4>
-                <a href="" aria-current="page" class="btn btn-dark btn-outline-light">
+                <a href="?aksi=tambah-poli" aria-current="page" class="btn btn-dark btn-outline-light">
                     <i class="fa fa-plus fa-1x"></i>
                     <span>Tambah Master Poli</span>
                 </a>
@@ -68,10 +68,33 @@
                                         <th class="table-layout-2 text-center">No</th>
                                         <th class="table-layout-2 text-center">Kode Poli</th>
                                         <th class="table-layout-2 text-center">Nama Poli</th>
-                                        <th class="table-layout-2 text-center">Aksi</th>
+                                        <th class="table-layout-2 text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <?php 
+                                        $no = 1;
+                                        $sql = "SELECT * FROM tb_poli order by id_poli asc";
+                                        $data = $konfigs->query($sql);
+                                        while($pecah = $data->fetch_assoc()){
+                                    ?>
+                                    <tr>
+                                        <td class="table-layout-2 text-center"><?php echo $no; ?></td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['kd_poli'] ?></td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['nm_poli'] ?></td>
+                                        <td class="table-layout-2 text-center">
+                                            <a href="?aksi=hapus-poli&id_poli=<?php echo $pecah['id_poli']?>"
+                                                onclick="return confirm('Apakah anda ingin menghapus poli ini ?')"
+                                                aria-current="page" class="btn btn-danger btn-outline-light">
+                                                <i class="fas fa-trash fa-1x"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $no++;
+                                        }
+                                    ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>

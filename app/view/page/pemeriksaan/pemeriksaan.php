@@ -43,10 +43,12 @@
                  fw-normal fs-5 text-dark">
                     <i class="fa fa-table fa-1x shadow"></i> <?php echo $title ?>
                 </h4>
-                <a href="" aria-current="page" class="btn btn-dark btn-outline-light">
+                <?php if($_SESSION['jabatan'] == "pemeriksaan"): ?>
+                <a href="?aksi=tambah-pemeriksaan" aria-current="page" class="btn btn-dark btn-outline-light">
                     <i class="fa fa-plus fa-1x"></i>
                     <span>Tambah Master Pemeriksaan</span>
                 </a>
+                <?php endif; ?>
             </div>
             <div class="card-body mt-1">
                 <div class="container-fluid">
@@ -69,11 +71,56 @@
                                         <th class="table-layout-2 text-center">Nama Pasien</th>
                                         <th class="table-layout-2 text-center">Poli</th>
                                         <th class="table-layout-2 text-center">Tanggal Periksa</th>
-                                        <th class="table-layout-2 text-center">Aksi</th>
+                                        <th class="table-layout-2 text-center">Action</th>
                                         <th class="table-layout-2 text-center">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <?php $ambil = $konfigs->query("SELECT * FROM tb_pemeriksaan a JOIN tb_pendaftaran b ON a.id_pendaftaran = b.id_pendaftaran
+                                        JOIN tb_pasien c ON b.id_pasien = c.id_pasien JOIN tb_poli d ON b.id_poli = d.id_poli"); ?>
+                                    <?php while($pecah = mysqli_fetch_assoc($ambil)){ ?>
+                                    <tr>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo $pecah['kd_pemeriksaan']; ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['nm_pasien']; ?></td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['nm_poli']; ?></td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo $pecah['tgl_pemeriksaan']; ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php if ($pecah['status_periksa'] == 0) { ?>
+                                            <a href="?aksi=lihat-pemeriksaan&id_pemeriksaan=<?php echo $pecah['id_pemeriksaan']?>"
+                                                aria-current="page" class="btn-primary btn-sm btn">
+                                                <i class="fas fa-eye"></i></i>
+                                            </a>
+                                            <?php } elseif ($pecah['status_periksa'] == 1) { ?>
+                                            <a href="?aksi=lihat-pemeriksaan&id_pemeriksaan=<?php echo $pecah['id_pemeriksaan']?>"
+                                                class="btn-primary btn-sm btn" aria-current="page">
+                                                <i class="fas fa-eye"></i></i>
+                                            </a>
+                                            <?php } else { ?>
+                                            <a href="#" class="btn-secondary btn-sm btn">
+                                                <i class="fas fa-minus"></i>
+                                            </a>
+                                            <?php } ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php if ($pecah['status_periksa'] == 0) { ?>
+                                            <span class="badge badge-danger text-danger fs-6 p-2">Belum Menerima
+                                                Resep</span>
+                                            <?php } elseif ($pecah['status_periksa'] == 1) { ?>
+                                            <span class="badge badge-success text-success fs-6 p-2">Sudah Menerima
+                                                Resep</span>
+                                            <?php } else { ?>
+                                            <span class="badge badge-danger text-danger p-2">
+                                                <i class="fas fa-minus"></i>
+                                            </span>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>

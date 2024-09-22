@@ -43,10 +43,12 @@
                  fw-normal fs-5 text-dark">
                     <i class="fa fa-table fa-1x shadow"></i> <?php echo $title ?>
                 </h4>
-                <a href="" aria-current="page" class="btn btn-dark btn-outline-light">
+                <?php if($_SESSION['jabatan'] == "pembayaran"): ?>
+                <a href="?aksi=tambah-pembayaran" aria-current="page" class="btn btn-dark btn-outline-light">
                     <i class="fa fa-user-plus fa-1x"></i>
                     <span>Tambah Pembayaran</span>
                 </a>
+                <?php endif; ?>
             </div>
             <div class="card-body mt-1">
                 <div class="container-fluid">
@@ -75,11 +77,64 @@
                                         <th class="table-layout-2 text-center">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <?php $ambil = $konfigs->query("SELECT * FROM tb_pembayaran a
+                                            JOIN tb_resep b ON a.id_resep = b.id_resep
+                                            JOIN tb_pemeriksaan c ON b.id_pemeriksaan = c.id_pemeriksaan
+                                            JOIN tb_pendaftaran d ON c.id_pendaftaran = d.id_pendaftaran
+                                            JOIN tb_pasien e ON d.id_pasien = e.id_pasien"); ?>
+                                    <?php while ($pecah = $ambil->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo $pecah['kd_pembayaran']; ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['nama_pasien']; ?></td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['kd_resep']; ?></td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo number_format($pecah['total_pembayaran']); ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo number_format($pecah['jumlah_bayar']); ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo number_format($pecah['kembalian']); ?></td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo $pecah['tgl_pembayaran']; ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php if ($pecah['status_pembayaran'] == 0) { ?>
+                                            <span class="badge badge-danger text-danger fs-6 p-2"></span>
+                                            <?php } elseif ($pecah['status_pembayaran'] == 1) { ?>
+                                            <span class="badge badge-success text-success  fs-6 p-2">Lunas</span>
+                                            <?php } else { ?>
+                                            <span class="badge badge-danger p-2">
+                                                <i class="fas fa-minus"></i>
+                                            </span>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer">
+                <form class="mb-2" action="?aksi=struk-pembayaran" method="POST">
+                    <div class="col-sm-8 col-md-10">
+                        <div class="col-md-2">
+                            <label>Dari</label>
+                            <input type="date" class="form-control" name="tanggal_1">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Sampai</label>
+                            <input type="date" class="form-control" name="tanggal_2">
+                        </div>
+                        <button type="submit" class="btn btn-primary font-weight-bold"
+                            style="height: 37px; margin-top: 33px;"><i class="fa fa-print fa-1x"></i> Cetak</button>
+                    </div>
+                </form>
             </div>
         </div>
         <?php require_once("../ui/footer.php") ?>

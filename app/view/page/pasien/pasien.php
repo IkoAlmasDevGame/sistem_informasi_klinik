@@ -43,10 +43,12 @@
                  fw-normal fs-5 text-dark">
                     <i class="fa fa-table fa-1x shadow"></i> <?php echo $title ?>
                 </h4>
-                <a href="" aria-current="page" class="btn btn-dark btn-outline-light">
+                <?php if($_SESSION['jabatan'] == "admin"): ?>
+                <a href="?aksi=tambah-pasien" aria-current="page" class="btn btn-dark btn-outline-light">
                     <i class="fa fa-user-plus fa-1x"></i>
                     <span>Tambah Master Pasien</span>
                 </a>
+                <?php endif; ?>
             </div>
             <div class="card-body mt-1">
                 <div class="container-fluid">
@@ -70,10 +72,57 @@
                                         <th class="table-layout-2 text-center">Jenis Kelamin</th>
                                         <th class="table-layout-2 text-center">Tanggal Lahir</th>
                                         <th class="table-layout-2 text-center">Alamat</th>
-                                        <th class="table-layout-2 text-center">Aksi</th>
+                                        <th class="table-layout-2 text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <?php $nomor = 1; ?>
+                                    <?php $data = $konfigs->query("SELECT * FROM tb_pasien"); ?>
+                                    <?php while ($pecah = $data->fetch_assoc()) { ?>
+                                    <?php $exp = explode("-", $pecah['tgl_lahir']); ?>
+                                    <tr>
+                                        <td class="table-layout-2 text-center"><?php echo $nomor; ?></td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['nm_pasien']; ?></td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo $pecah['jenis_kelamin']; ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php echo $exp[2]." / ".$exp[1]." / ".$exp[0] ?>
+                                        </td>
+                                        <td class="table-layout-2 text-center"><?php echo $pecah['alamat']; ?></td>
+                                        <td class="table-layout-2 text-center">
+                                            <?php if ($_SESSION["jabatan"] == 'admin') : ?>
+                                            <a href="?aksi=lihat-pasien&id_pasien=<?php echo $pecah['id_pasien']?>"
+                                                aria-current="page"
+                                                onclick="return confirm('Apakah anda ingin melihat data pasien ini ?');"
+                                                class="btn-primary btn-outline-light btn-sm btn">
+                                                <i class="fas fa-eye"></i></i>
+                                            </a>
+                                            <a href="?aksi=ubah-pasien&id_pasien=<?php echo $pecah['id_pasien']?>"
+                                                aria-current="page"
+                                                onclick="return confirm('Apakah anda ingin mengedit data pasien ini ?');"
+                                                class="btn-warning btn-sm btn">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="?aksi=pasien-hapus&id_pasien=<?php echo $pecah['id_pasien']?>"
+                                                aria-current="page"
+                                                onclick="return confirm('Apakah anda ingin menghapus data ini pasien ini ?');"
+                                                class="btn-danger btn-outline-light btn-sm btn">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <?php elseif ($_SESSION["jabatan"] == 'pendaftaran') : ?>
+                                            <a href="?aksi=lihat-pasien&id_pasien=<?php echo $pecah['id_pasien']?>"
+                                                aria-current="page"
+                                                onclick="return confirm('Apakah anda ingin melihat data pasien ini ?');"
+                                                class="btn-primary btn-outline-light btn-sm btn">
+                                                <i class="fas fa-eye"></i></i>
+                                            </a>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <?php $nomor++; ?>
+                                    <?php } ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>

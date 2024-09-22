@@ -380,6 +380,12 @@ if($_SESSION['jabatan'] == "superadmin"){
                     <hr class="border border-bottom border-dark">
                     <h4 class="fs-5 fst-normal fw-semibold">Pendaftaran Pasien</h4>
                     <li class="nav-item">
+                        <a class="nav-link collapsed" aria-current="page" href="?page=pasien">
+                            <i class="fa fa-hospital-user fa-1x"></i>
+                            <span>Master Pasien</span>
+                        </a>
+                    </li><!-- End Blank Page Nav -->
+                    <li class="nav-item">
                         <a class="nav-link collapsed" aria-current="page" href="?page=pendaftaran">
                             <i class="fas fa-clipboard-list fa-1x"></i>
                             <span>Data Pendaftaran</span>
@@ -469,6 +475,12 @@ if($_SESSION['jabatan'] == "superadmin"){
                             <a class="nav-link collapsed" aria-current="page" href="?page=pemeriksaan">
                                 <i class="fas fa-address-book fa-1x"></i>
                                 <span>Data Pemeriksaan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" aria-current="page" href="?page=resepobat">
+                                <i class="fas fa-scroll fa-1x"></i>
+                                <span>Resep Obat</span>
                             </a>
                         </li>
                         <hr class="border border-top border-dark">

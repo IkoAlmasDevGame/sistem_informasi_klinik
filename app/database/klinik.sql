@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2021 at 01:43 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Generation Time: Sep 22, 2024 at 03:21 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -35,11 +34,7 @@ CREATE TABLE `tb_dokter` (
   `spesialis_dokter` varchar(25) NOT NULL,
   `id_poli` int(11) NOT NULL,
   `tarif_dokter` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_dokter`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -55,11 +50,7 @@ CREATE TABLE `tb_obat` (
   `stok` int(11) NOT NULL,
   `harga_obat` int(11) NOT NULL,
   `exp_obat` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_obat`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -73,11 +64,7 @@ CREATE TABLE `tb_pasien` (
   `jenis_kelamin` enum('Laki-Laki','Perempuan') NOT NULL,
   `tgl_lahir` date NOT NULL,
   `alamat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_pasien`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -94,11 +81,7 @@ CREATE TABLE `tb_pembayaran` (
   `kembalian` int(11) NOT NULL,
   `tgl_pembayaran` date NOT NULL,
   `status_pembayaran` enum('0','1') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_pembayaran`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -110,15 +93,11 @@ CREATE TABLE `tb_pemeriksaan` (
   `id_pemeriksaan` int(11) NOT NULL,
   `kd_pemeriksaan` varchar(10) NOT NULL,
   `id_pendaftaran` int(11) NOT NULL,
-  `keluhan` varchar(50) NOT NULL,
-  `diagnosa` varchar(50) NOT NULL,
+  `keluhan` varchar(255) NOT NULL,
+  `diagnosa` varchar(255) NOT NULL,
   `status_periksa` enum('0','1') NOT NULL,
   `tgl_pemeriksaan` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_pemeriksaan`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -134,11 +113,7 @@ CREATE TABLE `tb_pendaftaran` (
   `id_poli` int(11) NOT NULL,
   `status` enum('0','1','2') NOT NULL,
   `tgl_pendaftaran` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_pendaftaran`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -150,11 +125,34 @@ CREATE TABLE `tb_poli` (
   `id_poli` int(11) NOT NULL,
   `kd_poli` varchar(10) NOT NULL,
   `nm_poli` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_poli`
 --
+
+INSERT INTO `tb_poli` (`id_poli`, `kd_poli`, `nm_poli`) VALUES
+(1, 'Poli - U', 'Poli Umum'),
+(2, 'Poli - G', 'Poli Gigi'),
+(3, 'Poli - M', 'Poli Mata'),
+(4, 'Poli - PD', 'Poli Penyakit Dalam'),
+(5, 'Poli - K', 'Poli Kandungan'),
+(6, 'Poli - J', 'Poli Jantung'),
+(7, 'Poli - THT', 'Poli THT'),
+(8, 'Poli - A', 'Poli Anak'),
+(9, 'Poli - Alg', 'Poli Andralogi'),
+(10, 'Poli - KO', 'Poli Kedokteran Olahraga'),
+(11, 'Poli - KF', 'Poli Kedokteran Forensik'),
+(12, 'Poli - Mb', 'Poli Mikrobiologi'),
+(13, 'Poli - Ptl', 'Poli Patologi'),
+(14, 'Poli - GS', 'Poli Gigi Spesialis'),
+(15, 'Poli - S', 'Poli Saraf'),
+(16, 'Poli - KK', 'Poli Kulit dan Kelamin'),
+(17, 'Poli - EM', 'Poli Emergensi Medik'),
+(18, 'Poli - A&T', 'Poli Anestesiologi dan Terapi'),
+(19, 'Poli - Psi', 'Poli Psikologi');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tb_resep`
@@ -173,11 +171,26 @@ CREATE TABLE `tb_resep` (
   `total` int(11) NOT NULL,
   `status_rsp` enum('0','1') NOT NULL,
   `tgl_resep` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `tb_resep`
+-- Table structure for table `tb_sistem`
 --
+
+CREATE TABLE `tb_sistem` (
+  `id_sistem` int(11) NOT NULL,
+  `developer` varchar(100) NOT NULL,
+  `status` enum('0','1') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_sistem`
+--
+
+INSERT INTO `tb_sistem` (`id_sistem`, `developer`, `status`) VALUES
+(1, 'IkoAlmasDevGame', '1');
 
 -- --------------------------------------------------------
 
@@ -187,14 +200,24 @@ CREATE TABLE `tb_resep` (
 
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
-  `username` varchar(25) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `jabatan` enum('admin','pembayaran','pendaftaran','pemeriksaan') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `email` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `repassword` varchar(255) NOT NULL,
+  `nama` varchar(80) NOT NULL,
+  `jabatan` enum('superadmin','admin','pembayaran','pendaftaran','pemeriksaan') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_user`
 --
+
+INSERT INTO `tb_user` (`id_user`, `email`, `username`, `password`, `repassword`, `nama`, `jabatan`) VALUES
+(1, 'superadmin@mailing.com', 'superadmin', 'c93ccd78b2076528346216b3b2f701e6', 'c93ccd78b2076528346216b3b2f701e6', 'super admin', 'superadmin'),
+(2, 'admin@mailing.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', '21232f297a57a5a743894a0e4a801fc3', 'Admin Poli Klinik', 'admin'),
+(3, 'pembayaran@mailing.com', 'pembayaran', 'f38cead502f18950326c255e478bedcd', 'f38cead502f18950326c255e478bedcd', 'Pembayaran Poli Klinik', 'pembayaran'),
+(4, 'pendaftaran@mailing.com', 'pendaftaran', 'beb9fb4aa4fbb632a8e029ca1c63e6af', 'beb9fb4aa4fbb632a8e029ca1c63e6af', 'Pendaftaran Poli Klinik', 'pendaftaran'),
+(5, 'pemeriksaan@mailing.com', 'pemeriksaan', '0b1c91a8adf6c4ba494b151b0d28e86c', '0b1c91a8adf6c4ba494b151b0d28e86c', 'Pemeriksaan Poli Klinik', 'pemeriksaan');
 
 --
 -- Indexes for dumped tables
@@ -254,6 +277,12 @@ ALTER TABLE `tb_resep`
   ADD KEY `id_pemeriksaan` (`id_pemeriksaan`);
 
 --
+-- Indexes for table `tb_sistem`
+--
+ALTER TABLE `tb_sistem`
+  ADD PRIMARY KEY (`id_sistem`);
+
+--
 -- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
@@ -267,49 +296,55 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_dokter`
 --
 ALTER TABLE `tb_dokter`
-  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_obat`
 --
 ALTER TABLE `tb_obat`
-  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_pasien`
 --
 ALTER TABLE `tb_pasien`
-  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_pemeriksaan`
 --
 ALTER TABLE `tb_pemeriksaan`
-  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_pendaftaran`
 --
 ALTER TABLE `tb_pendaftaran`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_poli`
 --
 ALTER TABLE `tb_poli`
-  MODIFY `id_poli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_poli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tb_resep`
 --
 ALTER TABLE `tb_resep`
-  MODIFY `id_resep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_resep` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_sistem`
+--
+ALTER TABLE `tb_sistem`
+  MODIFY `id_sistem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
