@@ -1,7 +1,7 @@
 # Sistem Informasi Klinik By IkoAlmasDevGame
 
 <center>
-    <div style="text-align:center;">POLI KLINIK ISLAMIC INDONESIA</div>
+    <div style="font-size:16px; text-align:center;">POLI KLINIK ISLAMIC INDONESIA</div>
 </center>
 <br>
 <ul>
